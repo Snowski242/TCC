@@ -182,92 +182,88 @@ public class Playercontroller : MonoBehaviour
     }
     void walk()
     {
-        if (Input.GetKey(KeyCode.RightArrow) && !currentlyDashing && !isAttacking)
+        if (!pauseMenu.isPaused)
         {
-            if (!pauseMenu.isPaused)
+            if (Input.GetAxis("Horizontal") > 0 && !currentlyDashing && !isAttacking)
             {
 
-                trans.position += transform.right * Time.deltaTime * speed;
+
+                    trans.position += transform.right * Time.deltaTime * speed;
+
+
+                    trans.rotation = Quaternion.Euler(0, 0, 0);
+
+                    animator.SetFloat("speed", Mathf.Abs(2));
+                    isLeft = false;
+                    CreateDust();
+
+
+            }
+            if (Input.GetAxis("Horizontal") < 0 && !currentlyDashing && !isAttacking)
+            {
+
+                    trans.position += transform.right * Time.deltaTime * speed;
+                    trans.rotation = Quaternion.Euler(0, 180, 0); //change y rotation to 180
+                    animator.SetFloat("speed", Mathf.Abs(2));
+                    isLeft = true;
+                    CreateDust();
                 
 
-                trans.rotation = Quaternion.Euler(0, 0, 0);
-
-                animator.SetFloat("speed", Mathf.Abs(2));
-                isLeft = false;
-                CreateDust();
             }
 
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) && !currentlyDashing && !isAttacking)
-        {
-            if (!pauseMenu.isPaused)
+            if (Input.GetAxis("Horizontal") > 0 && currentlyDashing && !isWallJumping && !IsWallSliding && !isAttacking)
             {
 
-                trans.position += transform.right * Time.deltaTime * speed;
-                trans.rotation = Quaternion.Euler(0, 180, 0); //change y rotation to 180
-                animator.SetFloat("speed", Mathf.Abs(2));
-                isLeft = true;
-                CreateDust();
+                    trans.position += transform.right * Time.deltaTime * speed * dashForce;
+                    trans.rotation = Quaternion.Euler(0, 0, 0);
+
+                    animator.SetFloat("speed", Mathf.Abs(4));
+                    isLeft = false;
+                    CreateBigDust();
+                
+
+
+            }
+            if (Input.GetAxis("Horizontal") < 0 && currentlyDashing && !isWallJumping && !IsWallSliding && !isAttacking)
+            {
+
+                    trans.position += transform.right * Time.deltaTime * speed * dashForce;
+                    trans.rotation = Quaternion.Euler(0, 180, 0);
+
+                    animator.SetFloat("speed", Mathf.Abs(4));
+                    isLeft = true;
+                    CreateBigDust();
+                
+
+
             }
 
-        }
-
-        if (Input.GetKey(KeyCode.RightArrow) && currentlyDashing && !isWallJumping && !IsWallSliding && !isAttacking)
-        {
-            if (!pauseMenu.isPaused)
+            if (Input.GetAxis("Horizontal") > 0 && currentlyDashing && isAttacking && !isWallJumping && !IsWallSliding)
             {
-                trans.position += transform.right * Time.deltaTime * speed * dashForce;
-                trans.rotation = Quaternion.Euler(0, 0, 0);
 
-                animator.SetFloat("speed", Mathf.Abs(4));
-                isLeft = false;
-                CreateBigDust();
+                    trans.position += transform.right * Time.deltaTime * speed * 3;
+                    trans.rotation = Quaternion.Euler(0, 0, 0);
+
+                    animator.SetFloat("speed", Mathf.Abs(4));
+                    animator.SetBool("IsDashAttacking", true);
+                    StartCoroutine(DashAttack());
+                    isLeft = false;
+                    CreateBigDust();
+                
             }
 
-
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) && currentlyDashing && !isWallJumping && !IsWallSliding && !isAttacking)
-        {
-            if (!pauseMenu.isPaused)
+            if (Input.GetAxis("Horizontal") < 0 && currentlyDashing && isAttacking && !isWallJumping && !IsWallSliding)
             {
-                trans.position += transform.right * Time.deltaTime * speed * dashForce;
-                trans.rotation = Quaternion.Euler(0, 180, 0);
 
-                animator.SetFloat("speed", Mathf.Abs(4));
-                isLeft = true;
-                CreateBigDust();
-            }
+                    trans.position += transform.right * Time.deltaTime * speed * 3;
+                    trans.rotation = Quaternion.Euler(0, 180, 0);
 
-
-        }
-
-        if (Input.GetKey(KeyCode.RightArrow) && currentlyDashing && isAttacking && !isWallJumping && !IsWallSliding)
-        {
-            if (!pauseMenu.isPaused)
-            {
-                trans.position += transform.right * Time.deltaTime * speed * 3;
-                trans.rotation = Quaternion.Euler(0, 0, 0);
-
-                animator.SetFloat("speed", Mathf.Abs(4));
-                animator.SetBool("IsDashAttacking", true);
-                StartCoroutine(DashAttack());
-                isLeft = false;
-                CreateBigDust();
-            }
-        }
-
-        if (Input.GetKey(KeyCode.LeftArrow) && currentlyDashing && isAttacking && !isWallJumping && !IsWallSliding)
-        {
-            if (!pauseMenu.isPaused)
-            {
-                trans.position += transform.right * Time.deltaTime * speed * 3;
-                trans.rotation = Quaternion.Euler(0, 180, 0);
-
-                animator.SetFloat("speed", Mathf.Abs(4));
-                animator.SetBool("IsDashAttacking", true);
-                StartCoroutine(DashAttack());
-                isLeft = true;
-                CreateBigDust();
+                    animator.SetFloat("speed", Mathf.Abs(4));
+                    animator.SetBool("IsDashAttacking", true);
+                    StartCoroutine(DashAttack());
+                    isLeft = true;
+                    CreateBigDust();
+                
             }
         }
 
@@ -290,11 +286,11 @@ public class Playercontroller : MonoBehaviour
 
         //dash
 
-        if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.A))
+        if (Input.GetAxis("Horizontal") > 0 && Input.GetKey(KeyCode.LeftShift))
         {
             currentlyDashing = true;
         }
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.A))
+        if (Input.GetAxis("Horizontal") < 0 && Input.GetKey(KeyCode.LeftShift))
         {
             currentlyDashing = true;
         }
@@ -302,7 +298,7 @@ public class Playercontroller : MonoBehaviour
     //animation stuff start
     void stance()
     {
-        if (!Input.GetKey(KeyCode.RightArrow) && (!Input.GetKey(KeyCode.LeftArrow)) && !isAttacking)
+        if (Input.GetAxis("Horizontal") == 0 && !isAttacking)
         {
             if (!pauseMenu.isPaused)
             {
