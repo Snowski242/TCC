@@ -16,7 +16,7 @@ public class Attacking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow) && Playercontroller.currentlyDashing && Playercontroller.isAttacking && !Playercontroller.isWallJumping && !Playercontroller.IsWallSliding)
+        if (Input.GetKey(KeyCode.RightArrow) && Playercontroller.currentlyDashing && Playercontroller.isAttacking)
         {
             if (!pauseMenu.isPaused)
             {
@@ -25,7 +25,7 @@ public class Attacking : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow) && Playercontroller.currentlyDashing && Playercontroller.isAttacking && !Playercontroller.isWallJumping && !Playercontroller.IsWallSliding)
+        if (Input.GetKey(KeyCode.LeftArrow) && Playercontroller.currentlyDashing && Playercontroller.isAttacking)
         {
             if (!pauseMenu.isPaused)
             {

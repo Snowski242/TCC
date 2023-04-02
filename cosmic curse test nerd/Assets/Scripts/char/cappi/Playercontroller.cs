@@ -13,7 +13,7 @@ public class Playercontroller : MonoBehaviour
 
     public AudioClip jumpeffect;
 
-    [SerializeField] public float speed; 
+    [Header("Jumping/Dashing Settings")]
     [SerializeField] float jumpForce;
     [SerializeField] public float dashForce;
     [SerializeField] float walljumpForce;
@@ -34,36 +34,33 @@ public class Playercontroller : MonoBehaviour
     [HideInInspector]
     public static bool isAttacking;
 
-    bool CanWallJump => Physics2D.Raycast(transform.position, isLeft ? Vector2.right : Vector2.left, 0.55f);
-    Vector2 WallJumpForce => (isLeft ? -5 : 5) * transform.right + transform.up * walljumpForce;
+    private float horizontal;
 
+    [Header("Buffers")]
     private float jumpBufferTime = 0.5f;
     private float jumpBufferCounter;
-
-    //coyote
-    private float coyoteTime = 0.35f;
+    private float coyoteTime = 0.38f;
     private float coyoteTimeCounter;
 
+    [Header("Fastfall")]
 //fast falling
     public float fastFallSpeed;
     bool isfastFalling;
 
     //wall sliding
-    [HideInInspector]
-    public static bool IsWallSliding;
-    private float wallSlidingSpeed = 1.5f;
 
-    //wall jumping (courtesy of bendux on yt)
-    [HideInInspector]
-    public static bool isWallJumping;
-    [HideInInspector]
-    public bool isLeft;
-    private float wallJumpingDirection;
-    private float wallJumpingTime = 0.2f;
-    private float WallJumpingCounter;
-    private float WallJumpingDuration = 0.4f;
-    private Vector2 wallJumpingPower = new Vector2(8f, 16f);
+    [Header("Speed Settings")]
+    [SerializeField] public float speed;
+    const float MaxSpeed = 18;
+    const float AccelSpeed = 1;
+    const float accelRate = 0.19f;
 
+
+
+
+    public bool isFacingRight;
+
+    [Header("Wall Settings")]
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private LayerMask groundLayer;
@@ -83,10 +80,15 @@ public class Playercontroller : MonoBehaviour
     void Update()
     {
         walk();
+        Flip();
+
         stance();
         jumpingAnim();
 
-        if(isGrounded)
+        horizontal = Input.GetAxisRaw("Horizontal");
+
+
+        if (isGrounded)
         {
             isfastFalling = false;
             animator.SetBool("Fastfalling", false);
@@ -128,8 +130,7 @@ public class Playercontroller : MonoBehaviour
 
 
 
-        WallSlide();
-        WallJump();
+
 
 
 
@@ -137,23 +138,57 @@ public class Playercontroller : MonoBehaviour
     }
     void FixedUpdate() 
     {
-        if(jumpInput && isGrounded && coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
+        if (!pauseMenu.isPaused)
+        {
+            body.velocity = new Vector2(horizontal * speed, body.velocity.y * Time.deltaTime);
+            IncreaseSpeed();
+
+            if (body.velocity.x == 0 && horizontal == 0)
+                speed = 0;
+
+            if (isFacingRight && speed > 0 && Input.GetAxis("Horizontal") < 0)
+            {
+                speed = 0;
+            }
+
+            if (!isFacingRight && speed > 0 && Input.GetAxis("Horizontal") > 0)
+            {
+                speed = 0;
+            }
+        }
+
+        void IncreaseSpeed()
+        {
+            speed += AccelSpeed * accelRate;
+
+            if (speed > MaxSpeed)
+            {
+                speed = MaxSpeed;
+            }
+
+        }
+        if (jumpInput && isGrounded && coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
         {
             jump();
             coyoteTimeCounter = 0f;
             jumpBufferCounter = 0f;
         }
 
+
+
+
+
+
         SlopeCheck();
 
-        if (body.velocity.y < 0)
-        {
-            body.gravityScale = body.gravityScale * 1.12f;
-        }
-        else
-        {
-            body.gravityScale = 2.5f;
-        }
+        //if (body.velocity.y < 0)
+        //{
+        //    body.gravityScale = body.gravityScale * 1.055f;
+        //}
+        //else
+        //{
+        //    body.gravityScale = 2.5f;
+        //}
 
     }
 
@@ -184,104 +219,44 @@ public class Playercontroller : MonoBehaviour
     {
         if (!pauseMenu.isPaused)
         {
-            if (Input.GetAxis("Horizontal") > 0 && !currentlyDashing && !isAttacking)
+            if (speed > 0 && !currentlyDashing && !isAttacking)
             {
 
 
-                    trans.position += transform.right * Time.deltaTime * speed;
-
-
-                    trans.rotation = Quaternion.Euler(0, 0, 0);
-
-                    animator.SetFloat("speed", Mathf.Abs(2));
-                    isLeft = false;
-                    CreateDust();
-
-
-            }
-            if (Input.GetAxis("Horizontal") < 0 && !currentlyDashing && !isAttacking)
-            {
-
-                    trans.position += transform.right * Time.deltaTime * speed;
-                    trans.rotation = Quaternion.Euler(0, 180, 0); //change y rotation to 180
-                    animator.SetFloat("speed", Mathf.Abs(2));
-                    isLeft = true;
-                    CreateDust();
-                
-
-            }
-
-            if (Input.GetAxis("Horizontal") > 0 && currentlyDashing && !isWallJumping && !IsWallSliding && !isAttacking)
-            {
-
-                    trans.position += transform.right * Time.deltaTime * speed * dashForce;
-                    trans.rotation = Quaternion.Euler(0, 0, 0);
-
-                    animator.SetFloat("speed", Mathf.Abs(4));
-                    isLeft = false;
-                    CreateBigDust();
-                
-
-
-            }
-            if (Input.GetAxis("Horizontal") < 0 && currentlyDashing && !isWallJumping && !IsWallSliding && !isAttacking)
-            {
-
-                    trans.position += transform.right * Time.deltaTime * speed * dashForce;
-                    trans.rotation = Quaternion.Euler(0, 180, 0);
-
-                    animator.SetFloat("speed", Mathf.Abs(4));
-                    isLeft = true;
-                    CreateBigDust();
-                
+                animator.SetFloat("speed", Mathf.Abs(2));
+                CreateDust();
 
 
             }
 
-            if (Input.GetAxis("Horizontal") > 0 && currentlyDashing && isAttacking && !isWallJumping && !IsWallSliding)
+            if (speed == MaxSpeed && !isAttacking)
             {
 
-                    trans.position += transform.right * Time.deltaTime * speed * 3;
-                    trans.rotation = Quaternion.Euler(0, 0, 0);
 
-                    animator.SetFloat("speed", Mathf.Abs(4));
-                    animator.SetBool("IsDashAttacking", true);
-                    StartCoroutine(DashAttack());
-                    isLeft = false;
-                    CreateBigDust();
-                
-            }
-
-            if (Input.GetAxis("Horizontal") < 0 && currentlyDashing && isAttacking && !isWallJumping && !IsWallSliding)
-            {
-
-                    trans.position += transform.right * Time.deltaTime * speed * 3;
-                    trans.rotation = Quaternion.Euler(0, 180, 0);
-
-                    animator.SetFloat("speed", Mathf.Abs(4));
-                    animator.SetBool("IsDashAttacking", true);
-                    StartCoroutine(DashAttack());
-                    isLeft = true;
-                    CreateBigDust();
-                
-            }
-        }
-
-        IEnumerator DashAttack()
-        {
-            if (isAttacking)
-            {
-
-                animator.SetBool("IsDashAttacking", true);
                 animator.SetFloat("speed", Mathf.Abs(4));
+                CreateBigDust();
+
 
             }
-            yield return new WaitForSeconds(.5f);
-
-            animator.SetBool("IsDashAttacking", false);
-            isAttacking = false;
-
         }
+
+
+
+        //IEnumerator DashAttack()
+        //{
+        //    if (isAttacking)
+        //    {
+
+        //        animator.SetBool("IsDashAttacking", true);
+        //        animator.SetFloat("speed", Mathf.Abs(4));
+
+        //    }
+        //    yield return new WaitForSeconds(.5f);
+
+        //    animator.SetBool("IsDashAttacking", false);
+        //    isAttacking = false;
+
+        //}
 
 
         //dash
@@ -342,83 +317,29 @@ public class Playercontroller : MonoBehaviour
     }
 
 
-    void walljumpforce()
-    {
-        if (!CanWallJump)
-            return;
 
-        body.AddForce(WallJumpForce, ForceMode2D.Impulse);
-        CreateDust();
-        Flip();
-
-
-    }
 
 
     void Flip()
     {
-        trans.rotation = isLeft ? Quaternion.identity : Quaternion.Euler(0, 180, 0);
-
-        isLeft = !isLeft;
-    }
-
-
-
-    private bool IsWalled()
-    {
-        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
-    }
-
-    private void WallSlide()
-    {
-        if (IsWalled() && !isGrounded)
+        if(isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
-            IsWallSliding = true;
-            body.velocity = new Vector2(body.velocity.x, Mathf.Clamp(body.velocity.y, -wallSlidingSpeed, float.MaxValue));
-
-        }
-        else
-        {
-            IsWallSliding = false;
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = trans.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
         }
     }
 
-    //wall jumping
 
-    private void WallJump()
-    {
-        if(IsWallSliding)
-        {
-            isWallJumping = false;
-            wallJumpingDirection = -trans.localScale.x;
-            WallJumpingCounter = wallJumpingTime;
 
-            CancelInvoke(nameof(StopWallJumping));
-        }
-        else
-        {
-            WallJumpingCounter -= Time.deltaTime;
-        }
 
-        if (Input.GetKeyDown(KeyCode.Z) && WallJumpingCounter > 0f && !isAttacking)
-        {
-            isWallJumping = true;
-            WallJumpingCounter = 0f;
-            walljumpforce();
-        }
 
-        if (transform.localScale.x != wallJumpingDirection)
-        {
 
-        }
 
-        Invoke(nameof(StopWallJumping), WallJumpingDuration);
-    }
 
-    private void StopWallJumping()
-    {
-        isWallJumping = false;
-    }
+
+
     private void OnCollisionEnter2D(Collision2D collision) // detects when the object collides with another object
     {
         if(collision.collider.tag == "Ground") // saying if the thing you're colliding with has the ground tag on it
