@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Playercontroller : MonoBehaviour
 { 
@@ -10,6 +11,8 @@ public class Playercontroller : MonoBehaviour
     private BoxCollider2D bb;
     public ParticleSystem dustSmall;
     public ParticleSystem dustBig;
+
+    public InputAction playerControl;
 
     public AudioClip jumpeffect;
 
@@ -34,6 +37,7 @@ public class Playercontroller : MonoBehaviour
     [HideInInspector]
     public static bool isAttacking;
 
+    Vector2 horizInput;
     private float horizontal;
 
     [Header("Buffers")]
@@ -76,6 +80,15 @@ public class Playercontroller : MonoBehaviour
         colliderSize = bb.size;
     }
 
+    private void OnEnable()
+    {
+        playerControl.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControl.Disable();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -85,7 +98,8 @@ public class Playercontroller : MonoBehaviour
         stance();
         jumpingAnim();
 
-        horizontal = Input.GetAxisRaw("Horizontal");
+        horizInput = playerControl.ReadValue<Vector2>();
+        horizontal = horizInput.x;
 
 
         if (isGrounded)
@@ -181,14 +195,14 @@ public class Playercontroller : MonoBehaviour
 
         SlopeCheck();
 
-        //if (body.velocity.y < 0)
-        //{
-        //    body.gravityScale = body.gravityScale * 1.055f;
-        //}
-        //else
-        //{
-        //    body.gravityScale = 2.5f;
-        //}
+        if (body.velocity.y < 0)
+        {
+            body.gravityScale = body.gravityScale * 1.075f;
+        }
+        else
+        {
+            body.gravityScale = 2.5f;
+        }
 
     }
 
@@ -307,7 +321,7 @@ public class Playercontroller : MonoBehaviour
 
             AudioSource.PlayClipAtPoint(jumpeffect, transform.position);
 
-            body.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+        body.velocity = new Vector2(body.velocity.x, jumpForce);
             isGrounded = false;
             CreateDust();
         
