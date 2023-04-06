@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1350
     height: 669
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: AnimationWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -220,16 +220,16 @@ MonoBehaviour:
     y: 377
     width: 759
     height: 242
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 19}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
   - {fileID: 19}
   - {fileID: 20}
-  m_Selected: 2
-  m_LastSelected: 1
+  m_Selected: 0
+  m_LastSelected: 2
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -249,8 +249,8 @@ MonoBehaviour:
     y: 0
     width: 391
     height: 619
-  m_MinSize: {x: 275, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 21}
@@ -298,7 +298,7 @@ MonoBehaviour:
     m_ControlHash: 1412526313
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 378
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -343,7 +343,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 84f4ffff
       m_LastClickedID: -2940
-      m_ExpandedIDs: f8faffff
+      m_ExpandedIDs: f8faffffd4770000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -762,9 +762,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 9.803735, y: 2.435249, z: 0.3140499}
+    m_Target: {x: 200.71184, y: -1.6700685, z: -0.022792393}
     speed: 2
-    m_Value: {x: 9.803735, y: 2.435249, z: 0.3140499}
+    m_Value: {x: 200.71184, y: -1.6700685, z: -0.022792393}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -814,9 +814,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 8.916083
+    m_Target: 6.174043
     speed: 2
-    m_Value: 8.916083
+    m_Value: 6.174043
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1054,22 +1054,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/PhysicsMaterial
+    - Assets/Scripts/char/cappi
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/PhysicsMaterial
+  - Assets/Scripts/char/cappi
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\trety\Documents\GitHub\TCC\cosmic curse test nerd
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: b0990000
-    m_LastClickedID: 39344
+    m_SelectedIDs: b48b0000
+    m_LastClickedID: 35764
     m_ExpandedIDs: 00000000b07b0000b27b0000b47b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1123,8 +1123,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 84f4ffff
-    m_LastClickedInstanceID: -2940
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c62300005e80000082a50000
     m_RenameOverlay:
@@ -1224,7 +1224,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -2940
+  m_LastSelectedObjectID: 30682
 --- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
