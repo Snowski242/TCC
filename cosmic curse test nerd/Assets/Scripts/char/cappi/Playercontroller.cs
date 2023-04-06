@@ -321,8 +321,8 @@ public class Playercontroller : MonoBehaviour
 
             AudioSource.PlayClipAtPoint(jumpeffect, transform.position);
 
-        body.velocity = new Vector2(body.velocity.x, jumpForce);
-            isGrounded = false;
+        body.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+        isGrounded = false;
             CreateDust();
         
         
