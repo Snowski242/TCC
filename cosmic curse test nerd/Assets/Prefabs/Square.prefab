@@ -9839,14 +9839,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5219899250546122292}
   - component: {fileID: 7717480626928531396}
-  - component: {fileID: 3716600573076049662}
+  - component: {fileID: 8995940522075737496}
   - component: {fileID: 7693140481619552932}
   - component: {fileID: 3551812050852536516}
-  - component: {fileID: 2740644378818383415}
+  - component: {fileID: 68866301637264619}
   - component: {fileID: 4784036517917709474}
   - component: {fileID: 5219792295747304991}
   - component: {fileID: 2235637089905909009}
-  - component: {fileID: 2096991560120480271}
+  - component: {fileID: 818969076294274488}
   m_Layer: 0
   m_Name: Square
   m_TagString: Player
@@ -9929,7 +9929,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3716600573076049662
+--- !u!114 &8995940522075737496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9938,29 +9938,70 @@ MonoBehaviour:
   m_GameObject: {fileID: 6651334894472565694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5b60c2794043a43bd30ff5b4fcc200, type: 3}
+  m_Script: {fileID: 11500000, guid: ce20debb156d6d04bb30ec00c022b667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trans: {fileID: 5219899250546122292}
-  body: {fileID: 2740644378818383415}
-  animator: {fileID: 4784036517917709474}
+  transs: {fileID: 5219899250546122292}
+  bodys: {fileID: 68866301637264619}
+  animators: {fileID: 4784036517917709474}
   dustSmall: {fileID: 1239854589054561570}
   dustBig: {fileID: 805566509301396819}
+  playerControl:
+    m_Name: Player Control
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 318fdebf-2a04-4892-afda-6d1920528d37
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: 3c347e6a-40fd-4b3d-aa60-68f2053721d5
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Control
+      m_Flags: 4
+    - m_Name: up
+      m_Id: d6b68567-fa41-4bae-996b-13fe04ca19c3
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Control
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 2dcea41d-7837-4320-a4a2-144bc5d91925
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Control
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 43160e80-4a2e-4f6f-bbc7-106b28d9410d
+      m_Path: <Keyboard>/leftArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Control
+      m_Flags: 8
+    - m_Name: right
+      m_Id: a4a74424-63b1-4b7d-ab8e-3cb013046abb
+      m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Control
+      m_Flags: 8
+    m_Flags: 0
   jumpeffect: {fileID: 8300000, guid: 9536a54bfce29a24a985ccc42cf45823, type: 3}
-  jumpForce: 38.23
-  dashForce: 2.45
+  jumpForce: 30.6
+  dashForce: 0
   walljumpForce: 0
-  slopeCheckDistance: 0.66
-  fastFallSpeed: 1.78
-  speed: 0.32
+  fastFallSpeed: 0
   isFacingRight: 0
-  wallCheck: {fileID: 256749214914635116}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  speed: 0.79
 --- !u!114 &7693140481619552932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9973,7 +10014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a54a7ec3ef27b4ea5991648d547efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
+  controller: {fileID: 8995940522075737496}
   attackPoint: {fileID: 4285812215223967155}
   attackRange: 1.49
   enemyLayers:
@@ -9992,7 +10033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footstepsSound: {fileID: 5219792295747304991}
---- !u!50 &2740644378818383415
+--- !u!50 &68866301637264619
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -10004,10 +10045,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2.76
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3.63
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -10148,8 +10189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e762ceec44c0e694eaee664b5140b79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &2096991560120480271
-BoxCollider2D:
+--- !u!70 &818969076294274488
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10180,19 +10221,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0058625042, y: -0.0029828697}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.99, y: 1.13}
-    newSize: {x: 2.97, y: 3.39}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.398678, y: 0.8956232}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.031262595, y: -0.008011268}
+  m_Size: {x: 0.39392522, y: 0.919796}
+  m_Direction: 0
 --- !u!1 &8078589056732294325
 GameObject:
   m_ObjectHideFlags: 0

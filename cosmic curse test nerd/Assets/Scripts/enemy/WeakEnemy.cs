@@ -7,16 +7,18 @@ public class WeakEnemy : MonoBehaviour
 
     [SerializeField] float deathTimer = 0.2f;
 
-    bool  isSquashed;
+    Rigidbody2D rb;
+    BoxCollider2D bc;
     bool movingLeft;
 
-    float flipTimer = 0;
+
     float speed = 1.5f;
     // Start is called before the first frame update
     void Start()
     {
         
-
+        rb = GetComponent<Rigidbody2D>();
+        bc = GetComponent<BoxCollider2D>();
  
 
 
@@ -25,52 +27,29 @@ public class WeakEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isSquashed)
-        {
-            Move();
-        }
-
-        if (isSquashed)
-        {
-            Destroy(gameObject, deathTimer);
-        }
-
-        if (flipTimer <= Time.realtimeSinceStartup)
-        {
-            transform.Rotate(new Vector3(0, 1, 0), 180);
-            flipTimer = Time.realtimeSinceStartup + 0.25f;
-        }
+        Move();
     }
 
     void Move()
     {
         if (movingLeft)
         {
-            transform.position += Vector3.left * Time.deltaTime * speed;
+            rb.velocity = new Vector2(-speed, 0);
         }
         else
         {
-            transform.position += Vector3.right * Time.deltaTime * speed;
+            rb.velocity = new Vector2(speed, 0);
         }
     }
 
-    public bool GetIsSquashed()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        return isSquashed;
-    }
+        if (collision.tag == "ground")
+        {
+            transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+            movingLeft = !movingLeft;
+            Debug.Log(transform.localScale.x);
+        }
 
-    public void SetIsSquashed(bool squashed)
-    {
-        isSquashed = squashed;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        movingLeft = !movingLeft;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        SetIsSquashed(true);
     }
 }

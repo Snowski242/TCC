@@ -5,7 +5,7 @@ using UnityEngine;
 public class Attacking : MonoBehaviour
 
 {
-    public Playercontroller controller;
+    public Player controller;
 
     public Transform attackPoint;
     public float attackRange = 0.5f;
@@ -16,7 +16,7 @@ public class Attacking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow) && Playercontroller.currentlyDashing && Playercontroller.isAttacking)
+        if (Input.GetKey(KeyCode.RightArrow) && Player.currentlyDashing && Player.isAttacking)
         {
             if (!pauseMenu.isPaused)
             {
@@ -25,7 +25,7 @@ public class Attacking : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow) && Playercontroller.currentlyDashing && Playercontroller.isAttacking)
+        if (Input.GetKey(KeyCode.LeftArrow) && Player.currentlyDashing && Player.isAttacking)
         {
             if (!pauseMenu.isPaused)
             {

@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Playercontroller : MonoBehaviour
-{ 
+{
     public Transform trans;
     public Rigidbody2D body;
     public Animator animator;
-    private BoxCollider2D bb;
+
     public ParticleSystem dustSmall;
     public ParticleSystem dustBig;
 
@@ -17,34 +17,28 @@ public class Playercontroller : MonoBehaviour
     public AudioClip jumpeffect;
 
     [Header("Jumping/Dashing Settings")]
-    [SerializeField] float jumpForce;
+    [SerializeField] protected float jumpForce;
     [SerializeField] public float dashForce;
     [SerializeField] float walljumpForce;
 
-    private Vector2 colliderSize;
-    [SerializeField] private float slopeCheckDistance;
-    private float slopeDownAngle;
-    private Vector2 slopeNormalPerp;
-    private bool isOnSlope;
-    private float slopeDownAngleOld;
 
     //main movements
-    bool jumpInput;
+    protected bool jumpInput;
     public static bool isGrounded;
-    bool isMoving;
     [HideInInspector]
    public static bool currentlyDashing;
     [HideInInspector]
     public static bool isAttacking;
 
+    protected Vector3 vertVelocity;
     Vector2 horizInput;
     private float horizontal;
 
     [Header("Buffers")]
-    private float jumpBufferTime = 0.5f;
-    private float jumpBufferCounter;
-    private float coyoteTime = 0.38f;
-    private float coyoteTimeCounter;
+    protected float jumpBufferTime = 0.5f;
+    protected float jumpBufferCounter;
+    protected float coyoteTime = 0.38f;
+    protected float coyoteTimeCounter;
 
     [Header("Fastfall")]
 //fast falling
@@ -57,7 +51,8 @@ public class Playercontroller : MonoBehaviour
     [SerializeField] public float speed;
     const float MaxSpeed = 18;
     const float AccelSpeed = 1;
-    const float accelRate = 0.19f;
+    const float accelRate = 0.14f;
+
 
 
 
@@ -75,9 +70,7 @@ public class Playercontroller : MonoBehaviour
     {
         trans = GetComponent<Transform>(); // takes the game object , get specific component and applies it to variable; 
         body = GetComponent<Rigidbody2D>();
-        bb = GetComponent<BoxCollider2D>();
 
-        colliderSize = bb.size;
     }
 
     private void OnEnable()
@@ -154,20 +147,26 @@ public class Playercontroller : MonoBehaviour
     {
         if (!pauseMenu.isPaused)
         {
-            body.velocity = new Vector2(horizontal * speed, body.velocity.y * Time.deltaTime);
+   
             IncreaseSpeed();
 
             if (body.velocity.x == 0 && horizontal == 0)
-                speed = 0;
+                while (speed > 1)
+                {
+                    speed -= AccelSpeed * accelRate;
+                }
 
-            if (isFacingRight && speed > 0 && Input.GetAxis("Horizontal") < 0)
+
+
+
+            if (isFacingRight && speed > 0 && horizontal < 0)
             {
-                speed = 0;
+                speed -= AccelSpeed * accelRate;
             }
 
-            if (!isFacingRight && speed > 0 && Input.GetAxis("Horizontal") > 0)
+            if (!isFacingRight && speed > 0 && horizontal > 0)
             {
-                speed = 0;
+                speed -= AccelSpeed * accelRate;
             }
         }
 
@@ -177,23 +176,27 @@ public class Playercontroller : MonoBehaviour
 
             if (speed > MaxSpeed)
             {
+                animator.speed = 1;
                 speed = MaxSpeed;
+            }
+            if (speed > 5)
+            {
+                animator.speed = 1.25f;
+            }
+            if (speed > 10)
+            {
+                animator.speed = 1.75f;
             }
 
         }
-        if (jumpInput && isGrounded && coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
-        {
-            jump();
-            coyoteTimeCounter = 0f;
-            jumpBufferCounter = 0f;
-        }
 
 
 
 
 
 
-        SlopeCheck();
+
+
 
         if (body.velocity.y < 0)
         {
@@ -201,8 +204,17 @@ public class Playercontroller : MonoBehaviour
         }
         else
         {
-            body.gravityScale = 2.5f;
+            body.gravityScale = 3f;
         }
+
+        if (jumpInput && isGrounded && coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
+        {
+            Jump();
+            coyoteTimeCounter = 0f;
+            jumpBufferCounter = 0f;
+        }
+
+
 
     }
 
@@ -233,7 +245,7 @@ public class Playercontroller : MonoBehaviour
     {
         if (!pauseMenu.isPaused)
         {
-            if (speed > 0 && !currentlyDashing && !isAttacking)
+            if (speed > 0 && !isAttacking)
             {
 
 
@@ -275,14 +287,6 @@ public class Playercontroller : MonoBehaviour
 
         //dash
 
-        if (Input.GetAxis("Horizontal") > 0 && Input.GetKey(KeyCode.LeftShift))
-        {
-            currentlyDashing = true;
-        }
-        if (Input.GetAxis("Horizontal") < 0 && Input.GetKey(KeyCode.LeftShift))
-        {
-            currentlyDashing = true;
-        }
     }
     //animation stuff start
     void stance()
@@ -292,7 +296,9 @@ public class Playercontroller : MonoBehaviour
             if (!pauseMenu.isPaused)
             {
 
-            animator.SetFloat("speed", Mathf.Abs(0));
+                animator.speed = 1;
+
+                animator.SetFloat("speed", Mathf.Abs(0));
             currentlyDashing = false;
                 isfastFalling = false;
 
@@ -316,20 +322,19 @@ public class Playercontroller : MonoBehaviour
 
     }
     //animation stuff end
-    void jump()
+
+    void Jump()
     {
 
-            AudioSource.PlayClipAtPoint(jumpeffect, transform.position);
+        AudioSource.PlayClipAtPoint(jumpeffect, transform.position);
 
-        body.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+        //body.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+        trans.position += transform.up * Time.deltaTime * jumpForce;
+
         isGrounded = false;
-            CreateDust();
-        
-        
-
+        CreateDust();
 
     }
-
 
 
 
@@ -370,45 +375,15 @@ public class Playercontroller : MonoBehaviour
         }
     }
 
-    void CreateDust()
+   public virtual void CreateDust()
     {
         dustSmall.Play();
     }
 
-    void CreateBigDust()
+    public virtual void CreateBigDust()
     {
         dustBig.Play();
     }
 
-    private void SlopeCheck()
-    {
-        Vector2 checkPos = transform.position - new Vector3(0.0f, colliderSize.y / 2);
-
-        SlopeCheckVertical(checkPos);
-    }
-
-    private void SlopeCheckerHorizontal(Vector2 checkPos)
-    {
-
-    }
-
-    private void SlopeCheckVertical(Vector2 checkPos)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(checkPos, Vector2.down, slopeCheckDistance, groundLayer);
-
-        if (hit)
-        {
-            slopeNormalPerp = Vector2.Perpendicular(hit.normal).normalized;
-
-            slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
-
-            if (slopeDownAngle != slopeDownAngleOld)
-            {
-                isOnSlope = true;
-            }
-            slopeDownAngleOld = slopeDownAngle;
-            Debug.DrawRay(hit.point, slopeNormalPerp, Color.red);
-            Debug.DrawRay(hit.point, hit.normal, Color.blue);
-        }
-    }
+    
 }

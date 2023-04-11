@@ -9,17 +9,38 @@ public class coinText : MonoBehaviour
     public static int score;
     public bool passedScore;
     public bool gotShard;
-    public TextMeshProUGUI CoinText;
+    public static TextMeshProUGUI CoinText;
+    public static Animator oloi;
 
    // Start is called before the first frame update
     void Start()
     {
+        CoinText = GetComponent<TextMeshProUGUI>();
+        oloi = GetComponent<Animator>();
         passedScore = false;
         gotShard = false;
         score = 0;
         rankingSystem.thingsDone = 0;
     }
 
+    private void Update()
+    {
+        CoinText.text = $"{score}";
+
+        if (score >= rankingSystem.scoreThreshold && !passedScore)
+        {
+            passedScore = true;
+            rankingSystem.RankNumUp();
+        }
+
+        if (score < rankingSystem.scoreThreshold && passedScore)
+        {
+            passedScore = false;
+            rankingSystem.RankNumDwn();
+        }
+
+        if (score < 0) score = 0;
+    }
     private void OnEnable()
     {
         Coin.OnCoinCollected += IncrementCoinCount;
@@ -40,19 +61,7 @@ public class coinText : MonoBehaviour
 
 
 
-        CoinText.text = $"{score}";
 
-        if (score >= rankingSystem.scoreThreshold && !passedScore)
-        {
-            passedScore = true;
-            rankingSystem.RankNumUp();
-        }
-
-        if (score < rankingSystem.scoreThreshold && passedScore)
-        {
-            passedScore = false;
-            rankingSystem.RankNumDwn();
-        }
     }
 
     public void BigIncrementCount()
@@ -80,6 +89,14 @@ public class coinText : MonoBehaviour
     {
         gotShard = true;
         rankingSystem.RankNumUp();
+    }
+
+    public static void GettingHurt()
+    {
+        oloi.SetTrigger("hurt");
+
+
+
     }
 
 }
