@@ -51,9 +51,16 @@ public class Player : MonoBehaviour
 
     [Header("Speed Settings")]
     [SerializeField] public float speed;
-    const float MaxSpeed = 19;
+    const float MaxSpeed = 24;
     const float AccelSpeed = 1;
-    const float accelRate = 0.13f;
+    const float accelRate = 0.14f;
+
+    [Header("Boost Settings")]
+    public float boostForce;
+    public float boostSpeed = 1;
+    public const float boostRate = 0.75f;
+    public float boostGauge = 2;
+    public float boostGaugeMax = 10;
 
     private void OnEnable()
     {
@@ -71,6 +78,7 @@ public class Player : MonoBehaviour
         transs = GetComponent<Transform>(); // takes the game object , get specific component and applies it to variable; 
         bodys = GetComponent<Rigidbody2D>();
         vectorVar = rbVelocity.x;
+        CineMachineShake.Instance.ShakeCamera(0f, .1f);
     }
 
     // Update is called once per frame
@@ -117,6 +125,16 @@ public class Player : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.A) && boostGauge > 0)
+        {
+            isAttacking = true;
+            StartCoroutine(Boost());
+        }
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            isAttacking = false;
+        }
+
         if (Input.GetKey(KeyCode.DownArrow) && !isGrounded && !isfastFalling)
         {
             if (!pauseMenu.isPaused)
@@ -151,11 +169,6 @@ public class Player : MonoBehaviour
         {
             bodys.AddForce(transform.right * horizontal, ForceMode2D.Impulse);
         }
-        else if (canMove && !isGrounded && speed < MaxSpeed)
-        {
-            bodys.AddForce(transform.right * horizontal * 0.4f, ForceMode2D.Impulse);
-            bodys.velocity = Vector3.ClampMagnitude(bodys.velocity, speed);
-        }
  
 
         if (jumpInput && isGrounded && coyoteTimeCounter > 0f && jumpBufferCounter > 0f && canMove)
@@ -174,6 +187,9 @@ public class Player : MonoBehaviour
                 {
                     speed -= AccelSpeed * accelRate;
                 }
+
+
+
 
 
 
@@ -199,25 +215,26 @@ public class Player : MonoBehaviour
                 animators.speed = 1;
                 speed = MaxSpeed;
                 currentlyDashing = true;
+
+            }
+            if (speed > 1)
+            {
+                animators.speed = 0.75f;
             }
             if (speed > 5)
             {
                 animators.speed = 1.25f;
             }
-            if (speed > 10)
+            if (speed > 12)
+            {
+                animators.speed = 1.55f;
+            }
+            if (speed > 18)
             {
                 animators.speed = 1.75f;
             }
 
 
-            if (bodys.velocity.y < 0)
-            {
-                bodys.gravityScale = bodys.gravityScale * 1.075f;
-            }
-            else
-            {
-                bodys.gravityScale = 3f;
-            }
 
 
         }
@@ -324,13 +341,17 @@ public class Player : MonoBehaviour
 
     void Flip()
     {
-        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        if(canMove)
         {
+            if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+            {
             isFacingRight = !isFacingRight;
             Vector3 localScale = transs.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
+            }
         }
+
     }
 
     void fastFall()
@@ -338,6 +359,8 @@ public class Player : MonoBehaviour
 
         if (isfastFalling)
         {
+            canMove = false;
+            horizontal = 0;
             bodys.AddForce(-transform.up * fastFallSpeed, ForceMode2D.Impulse);
             animators.SetBool("Fastfalling", true);
             CreateBigDust();
@@ -348,11 +371,31 @@ public class Player : MonoBehaviour
         {
 
             animators.SetBool("Fastfalling", false);
+            canMove = true;
             stance();
         }
 
 
 
+    }
+
+    IEnumerator Boost()
+    {
+        if (canMove)
+        {
+            while(Input.GetKeyDown(KeyCode.A) && boostGauge > 0f)
+            {
+                speed = MaxSpeed;
+                bodys.AddForce(transform.right * boostForce * horizontal, ForceMode2D.Impulse);
+                boostGauge = Mathf.MoveTowards(boostGauge, 0f, boostRate * Time.deltaTime);
+                CineMachineShake.Instance.ShakeCamera(1.36f, .1f);
+
+                yield return null;
+            }
+
+
+
+        }
     }
 
 

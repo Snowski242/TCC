@@ -11,6 +11,9 @@ public class coinText : MonoBehaviour
     public bool gotShard;
     public static TextMeshProUGUI CoinText;
     public static Animator oloi;
+    public StarIndex starIndex;
+    public StarCoin starCoin;
+
 
    // Start is called before the first frame update
     void Start()
@@ -44,6 +47,7 @@ public class coinText : MonoBehaviour
     private void OnEnable()
     {
         Coin.OnCoinCollected += IncrementCoinCount;
+        StarCoin.OnStarCoinCollected += StarCoinIncrement;
         ModerateEnemyDead.ModerateEnemDead += BigIncrementCount;
         MaliceShard.OnShardCollect += ShardGet;
     }
@@ -51,6 +55,7 @@ public class coinText : MonoBehaviour
     private void OnDisable()
     {
         Coin.OnCoinCollected -= IncrementCoinCount;
+        StarCoin.OnStarCoinCollected -= StarCoinIncrement;
         ModerateEnemyDead.ModerateEnemDead -= BigIncrementCount;
         MaliceShard.OnShardCollect -= ShardGet;
     }
@@ -64,6 +69,33 @@ public class coinText : MonoBehaviour
 
     }
 
+
+    public void StarCoinIncrement() 
+    { 
+        score = score + 1000;
+
+        //if (starIndex.StarCoinNumber == 1 && starCoin.Index == 1)
+        //{
+        //    GameManager.PP_Coin1 = true;
+        //}
+        //else if (starIndex.StarCoinNumber == 2 && starCoin.Index == 2)
+        //{
+        //    GameManager.PP_Coin2 = true;
+        //}
+        //else if (starIndex.StarCoinNumber == 3 && starCoin.Index == 3)
+        //{
+        //    GameManager.PP_Coin3 = true;
+        //}
+        //else if (starIndex.StarCoinNumber == 4 && starCoin.Index == 4)
+        //{
+        //    GameManager.PP_Coin4 = true;
+        //}
+        //else if (starIndex.StarCoinNumber == 5 && starCoin.Index == 5)
+        //{
+        //    GameManager.PP_Coin5 = true;
+        //}
+
+    }
     public void BigIncrementCount()
     {
         score = score + 40;

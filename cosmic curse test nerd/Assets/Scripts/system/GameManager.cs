@@ -10,7 +10,12 @@ public class GameManager : MonoBehaviour
 
     public static event Action rankUp;
 
-
+    //Plum Plains Coins
+    public static bool PP_Coin1;
+    public static bool PP_Coin2;
+    public static bool PP_Coin3;
+    public static bool PP_Coin4;
+    public static bool PP_Coin5;
 
     void Awake()
     {

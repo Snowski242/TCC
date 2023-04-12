@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 8300000, guid: 7b3920edf42f69b4d8c8db48fc722056, type: 3}
   moveSpeed: 7.78
+  coinPopup10: {fileID: 2368299083740009070, guid: 5cb170447c0ab2a4a91308038a9c4085, type: 3}
 --- !u!50 &4871825002235833027
 Rigidbody2D:
   serializedVersion: 4

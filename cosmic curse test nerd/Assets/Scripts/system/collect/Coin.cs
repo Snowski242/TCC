@@ -14,6 +14,7 @@ public class Coin : MonoBehaviour, ICollectable
     Vector3 targetPosition;
     [SerializeField] float moveSpeed;
 
+    public GameObject coinPopup10;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,7 +24,7 @@ public class Coin : MonoBehaviour, ICollectable
     {
         Debug.Log("Coincollect");
         OnCoinCollected?.Invoke();
-
+        Instantiate(coinPopup10, transform.position, Quaternion.identity);
         AudioSource.PlayClipAtPoint(soundEffect, transform.position);
 
         Destroy(gameObject);
