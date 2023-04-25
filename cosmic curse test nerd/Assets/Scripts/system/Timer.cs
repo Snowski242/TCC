@@ -6,8 +6,19 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     public TextMeshProUGUI timeText;
+    public Animator animator;
 
-    public float timeValue;
+    public static float timeValue;
+
+    private void OnEnable()
+    {
+        Player.TimeIncrease += IncreaseTime;
+    }
+
+    private void OnDisable()
+    {
+        Player.TimeIncrease -= IncreaseTime;
+    }
 
     private void Update()
     {
@@ -34,5 +45,11 @@ public class Timer : MonoBehaviour
         timeText.text = string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
 
 
+    }
+
+    private void IncreaseTime()
+    {
+        animator.SetTrigger("hurt");
+        timeValue = timeValue + 3;
     }
 }

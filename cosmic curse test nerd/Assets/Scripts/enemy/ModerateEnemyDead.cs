@@ -29,6 +29,8 @@ public class ModerateEnemyDead : MonoBehaviour
 
     void Die()
     {
+        Player.boostGauge = Player.boostGauge + 2;
+
         Debug.Log("dead weeper");
         ModerateEnemDead?.Invoke();
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6249642567471884953}
   - component: {fileID: 344876028161603526}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 2679038768399417676}
   - component: {fileID: 1239854589054561570}
   - component: {fileID: 2882019462068176547}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4939,37 +4939,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!1 &1365347285500828141
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 256749214914635116}
-  m_Layer: 0
-  m_Name: wallCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &256749214914635116
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1365347285500828141}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.182, y: 0.019064888, z: 0.021267459}
-  m_LocalScale: {x: 0.24252982, y: 0.23831111, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5219899250546122292}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1676192719223291541
 GameObject:
   m_ObjectHideFlags: 0
@@ -4979,7 +4948,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4285812215223967155}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: attackPoint
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -4994,7 +4963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676192719223291541}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.089, y: -0.006, z: 0}
+  m_LocalPosition: {x: -0.317, y: -0.006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5012,7 +4981,7 @@ GameObject:
   - component: {fileID: 3176210493794052376}
   - component: {fileID: 805566509301396819}
   - component: {fileID: 6728445441009177685}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Big dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9829,6 +9798,73 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &3472312088609077562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9150296132698638273}
+  - component: {fileID: 191556257479191904}
+  m_Layer: 3
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9150296132698638273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3472312088609077562}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.016216433, y: 0.19, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5219899250546122292}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &191556257479191904
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3472312088609077562}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.025278449, y: -0.43503103}
+  serializedVersion: 2
+  m_Radius: 0.2643256
 --- !u!1 &6651334894472565694
 GameObject:
   m_ObjectHideFlags: 0
@@ -9847,8 +9883,10 @@ GameObject:
   - component: {fileID: 5219792295747304991}
   - component: {fileID: 2235637089905909009}
   - component: {fileID: 818969076294274488}
+  - component: {fileID: 2828003826364520179}
   - component: {fileID: 2494051584941625715}
-  m_Layer: 0
+  - component: {fileID: 7921580080404573433}
+  m_Layer: 6
   m_Name: Square
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -9867,7 +9905,6 @@ Transform:
   m_LocalScale: {x: 3.4902923, y: 3.4727712, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 256749214914635116}
   - {fileID: 6249642567471884953}
   - {fileID: 6506957473833775911}
   - {fileID: 7820408280664760730}
@@ -9875,6 +9912,7 @@ Transform:
   - {fileID: 4285812215223967155}
   - {fileID: 2679038768399417676}
   - {fileID: 3176210493794052376}
+  - {fileID: 9150296132698638273}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9918,13 +9956,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 56
   m_Sprite: {fileID: 21300000, guid: bec8fb1f958639b43ad383436b6df1a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.97, y: 3.39}
+  m_Size: {x: 0.99, y: 1.13}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9944,6 +9982,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transs: {fileID: 5219899250546122292}
   animators: {fileID: 4784036517917709474}
+  spriteRend: {fileID: 7717480626928531396}
+  standingCollider: {fileID: 818969076294274488}
+  crouchCollider: {fileID: 2828003826364520179}
   dustSmall: {fileID: 1239854589054561570}
   dustBig: {fileID: 805566509301396819}
   playerControl:
@@ -9962,22 +10003,6 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Player Control
       m_Flags: 4
-    - m_Name: up
-      m_Id: d6b68567-fa41-4bae-996b-13fe04ca19c3
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Control
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 2dcea41d-7837-4320-a4a2-144bc5d91925
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Control
-      m_Flags: 8
     - m_Name: left
       m_Id: 43160e80-4a2e-4f6f-bbc7-106b28d9410d
       m_Path: <Keyboard>/leftArrow
@@ -9999,9 +10024,22 @@ MonoBehaviour:
   jumpForce: 47
   dashForce: 0
   walljumpForce: 0
-  fastFallSpeed: 0
   isFacingRight: 0
   speed: 0.79
+  boostForce: 7.52
+  boostSpeed: 1
+  slopeCheckDistance: 1.11
+  maxSlopeAngle: 117.3
+  groundCheckRadius: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+  KBForce: 9.73
+  KBCounter: 0
+  KBTotaltime: 0.16
+  KnockFromRight: 0
+  numberOfFlashes: 1
+  canBeHit: 1
 --- !u!114 &7693140481619552932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10016,7 +10054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 8995940522075737496}
   attackPoint: {fileID: 4285812215223967155}
-  attackRange: 1.49
+  attackRange: 2.96
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
@@ -10033,6 +10071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footstepsSound: {fileID: 5219792295747304991}
+  footrunstepsSound: {fileID: 7921580080404573433}
 --- !u!50 &68866301637264619
 Rigidbody2D:
   serializedVersion: 4
@@ -10091,7 +10130,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5763be77f363f444faead00bd9b93e89, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a6b1bb636d25e6241802ac967108a217, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.303
   m_Pitch: 1
@@ -10224,6 +10263,41 @@ CapsuleCollider2D:
   m_Offset: {x: -0.031262595, y: -0.008011268}
   m_Size: {x: 0.39392522, y: 0.919796}
   m_Direction: 0
+--- !u!70 &2828003826364520179
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6651334894472565694}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.031262595, y: -0.269953}
+  m_Size: {x: 0.39392522, y: 0.3959127}
+  m_Direction: 0
 --- !u!114 &2494051584941625715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10237,6 +10311,102 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RespawnLocation: {fileID: 0}
+--- !u!82 &7921580080404573433
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6651334894472565694}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ebf32a8710877dd49b9cc79c25eb4286, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.477
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8078589056732294325
 GameObject:
   m_ObjectHideFlags: 0
@@ -10248,7 +10418,7 @@ GameObject:
   - component: {fileID: 174295147171450587}
   - component: {fileID: 4770858691405396050}
   - component: {fileID: 2165994814635189404}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15076,7 +15246,7 @@ GameObject:
   - component: {fileID: 7820408280664760730}
   - component: {fileID: 5682297970638965739}
   - component: {fileID: 6035636412389768557}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CollectorCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15156,7 +15326,7 @@ GameObject:
   - component: {fileID: 6506957473833775911}
   - component: {fileID: 3934811840356952899}
   - component: {fileID: 1508358635349840318}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MagnetCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

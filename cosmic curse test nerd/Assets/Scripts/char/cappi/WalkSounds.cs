@@ -5,6 +5,7 @@ using UnityEngine;
 public class WalkSounds : MonoBehaviour
 {
     public AudioSource footstepsSound;
+    public AudioSource footrunstepsSound;
 
 
 
@@ -14,4 +15,9 @@ public class WalkSounds : MonoBehaviour
         footstepsSound.Play();
     }
 
+    public void playrunclip()
+
+    {
+        footrunstepsSound.Play();
+    }
 }
